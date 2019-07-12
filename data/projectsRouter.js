@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const addProject = await Projects.insert(req.body);
-        res.status(200).json({ message: 'Project added!'});
+        res.status(200).json({ message: 'Project added!', addProject});
     } catch(err) {
         res.status(500).json({ message: 'Project could not be added.' })
     }
@@ -40,7 +40,7 @@ router.put('/:id', async (req, res) => {
         if(!project){
             res.status(404).json({ message: 'Project was not found' })
         } else {
-            await Projects.update(re.params.id, req.body)
+            await Projects.update(req.params.id, req.body)
             res.json({ message: 'Updated succesfully!' })
         }
     } catch(err){
