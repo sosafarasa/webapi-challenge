@@ -35,5 +35,19 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    try{
+        const count = await Actions.remove(req.params.id);
+        if(count > 0) {
+            res.status(204).end();
+        } else {
+            res.status(404).json({ message : 'The action requested does not exist.' })
+        }
+    } catch(err){
+        res.status(500).json({ message: 'Failed to delete.' })
+    }
+});
+
+
 
 module.exports = router;
